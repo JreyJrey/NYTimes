@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
   <meta charset="UTF-8">
   <title>New York Times Search</title>
   <!-- Bootswatch Styling for Improving the Aesthetics -->
@@ -92,8 +93,25 @@
     </div>
   </div>
   <!-- jQuery JS -->
-  <script src="NY-app.js"></script>
-  <!-- Code to the JavaScript File -->
-  <script src="NY-app.js"></script>
+  <!-- <script src="script.js"></script> -->
+  <script type="text/javascript">
+    
+
+var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+url += '?'
+url += $.param({
+  'api-key': "c249aa2384ce46b5aac03515ce976a0f"
+});
+$.ajax({
+  url: url,
+  method: 'GET',
+}).done(function(result) {
+  console.log(result);
+
+}).fail(function(err) {
+  throw err;
+});
+  </script>
+  <!-- <script src="NY-app.js"></script> -->
 </body>
 </html>
