@@ -60,7 +60,7 @@
                 <input type="text" class="form-control" id="end-year">
               </div>
               <!-- Here we have our final submit button -->
-              <button type="submit" class="btn btn-default" id="run-search"><i class="fa fa-search"></i> Search</button>
+              <button type="button" class="btn btn-default" id="run-search"><i class="fa fa-search"></i> Search</button>
               <button type="button" class="btn btn-default" id="clear-all"><i class="fa fa-trash"></i> Clear Results</button>
             </form>
           </div>
@@ -96,21 +96,36 @@
   <!-- <script src="script.js"></script> -->
   <script type="text/javascript">
     
-
+//Click function
+$("#run-search").click(function(){
 var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
 url += '?'
 url += $.param({
-  'api-key': "c249aa2384ce46b5aac03515ce976a0f"
+  'api-key': "c249aa2384ce46b5aac03515ce976a0f",
+  'q': $("#search-term").val()
 });
 $.ajax({
   url: url,
   method: 'GET',
 }).done(function(result) {
   console.log(result);
+  for(i=0; i < $("#num-records-select").val(); i++){
+    var newDiv = $("<div>");
+    var br = $("<br>")
+    newDiv.append("Title: "+result.response.docs[i].headline.main);
+    newDiv.append("Pub_Date: "+result.response.docs[i].pub_date);
+    newDiv.append("Snippet: "+result.response.docs[i].snippet);
 
-}).fail(function(err) {
-  throw err;
-});
+    $("#well-section").append(newDiv)
+    
+    $("#well-section").append(br)
+
+  }
+
+
+
+  })
+})
   </script>
   <!-- <script src="NY-app.js"></script> -->
 </body>
